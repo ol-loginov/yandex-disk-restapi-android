@@ -1,15 +1,12 @@
 /*
-* (C) 2015 Yandex LLC (https://yandex.com/)
-*
-* The source code of Java SDK for Yandex.Disk REST API
-* is available to use under terms of Apache License,
-* Version 2.0. See the file LICENSE for the details.
-*/
+ * (C) 2015 Yandex LLC (https://yandex.com/)
+ *
+ * The source code of Java SDK for Yandex.Disk REST API
+ * is available to use under terms of Apache License,
+ * Version 2.0. See the file LICENSE for the details.
+ */
 
 package com.yandex.disk.rest;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.yandex.disk.rest.exceptions.CancelledUploadingException;
 import com.yandex.disk.rest.util.Logger;
@@ -20,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.Util;
@@ -41,8 +40,9 @@ import okio.Source;
      *
      * @see RequestBody#create(MediaType, File)
      */
-    /* package */ static RequestBody create(@NonNull final MediaType contentType, @Nullable final File file,
-                                            final long startOffset, @Nullable final ProgressListener listener) {
+    /* package */
+    static RequestBody create(@NonNull final MediaType contentType, @Nullable final File file,
+                              final long startOffset, @Nullable final ProgressListener listener) {
         if (file == null) {
             throw new NullPointerException("content == null");
         }

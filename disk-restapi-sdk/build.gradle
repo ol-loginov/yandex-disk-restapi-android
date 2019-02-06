@@ -18,8 +18,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     buildTypes {
@@ -39,7 +39,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:' + supportLibsVersion
+//    implementation 'com.android.support:appcompat-v7:' + supportLibsVersion
+    implementation 'androidx.annotation:annotation:1.0.1'
+
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
