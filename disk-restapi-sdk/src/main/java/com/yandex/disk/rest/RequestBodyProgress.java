@@ -41,14 +41,10 @@ import okio.Source;
      * @see RequestBody#create(MediaType, File)
      */
     /* package */
-    static RequestBody create(@NonNull final MediaType contentType, @Nullable final File file,
+    static RequestBody create(@NonNull final MediaType contentType, @Nullable final FileSupplier file,
                               final long startOffset, @Nullable final ProgressListener listener) {
         if (file == null) {
             throw new NullPointerException("content == null");
-        }
-
-        if (listener == null && startOffset == 0) {
-            return RequestBody.create(contentType, file);
         }
 
         return new RequestBody() {
@@ -76,7 +72,7 @@ import okio.Source;
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 Source source = null;
-                InputStream inputStream = new FileInputStream(file);
+                InputStream inputStream = file.read();
                 try {
                     if (startOffset > 0) {
                         long skipped = inputStream.skip(startOffset);

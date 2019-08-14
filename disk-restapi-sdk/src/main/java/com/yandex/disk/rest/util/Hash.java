@@ -8,6 +8,8 @@
 
 package com.yandex.disk.rest.util;
 
+import com.yandex.disk.rest.FileSupplier;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -44,6 +46,16 @@ public class Hash {
     public static Hash getHash(File file)
             throws IOException {
         InputStream is = new FileInputStream(file);
+        try {
+            return getHash(is, file.length());
+        } finally {
+            close(is);
+        }
+    }
+
+    public static Hash getHash(FileSupplier file)
+            throws IOException {
+        InputStream is = file.read();
         try {
             return getHash(is, file.length());
         } finally {

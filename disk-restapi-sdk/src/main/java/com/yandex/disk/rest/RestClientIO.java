@@ -32,9 +32,11 @@ import com.yandex.disk.rest.util.Logger;
 import com.yandex.disk.rest.util.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -204,7 +206,7 @@ import okhttp3.internal.http.HttpMethod;
         }
     }
 
-    /* package */ void uploadFile(@NonNull final String url, @NonNull final File file, final long startOffset,
+    /* package */ void uploadFile(@NonNull final String url, @NonNull final FileSupplier file, final long startOffset,
                            @Nullable final ProgressListener progressListener)
             throws IOException, HttpCodeException {
         logger.debug("uploadFile: put to url: "+url);

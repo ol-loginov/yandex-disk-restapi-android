@@ -29,10 +29,13 @@ import com.yandex.disk.rest.util.Logger;
 import com.yandex.disk.rest.util.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.function.Supplier;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Response;
@@ -433,6 +436,30 @@ public class RestClient {
     public void uploadFile(@NonNull final Link link, final boolean resumeUpload,
                            @NonNull final File localSource,
                            @Nullable final ProgressListener progressListener)
+            throws IOException, ServerException {
+        FileSupplier fileSupplier = new FileSupplier() {
+            @Override
+            public InputStream read() throws IOException {
+                return new FileInputStream(localSource);
+            }
+
+            @Override
+            public long length() {
+                return localSource.length();
+            }
+        };
+        uploadFile(link, resumeUpload, fileSupplier, progressListener);
+    }
+
+    /**
+     * Uploading a file to Disk: upload a stream
+     *
+     * @see <p>API reference <a href="http://api.yandex.com/disk/api/reference/upload.xml">english</a>,
+     * <a href="https://tech.yandex.ru/disk/api/reference/upload-docpage/">russian</a></p>
+     */
+    public void uploadFile(@NonNull final Link link, final boolean resumeUpload,
+                             @NonNull final FileSupplier localSource,
+                             @Nullable final ProgressListener progressListener)
             throws IOException, ServerException {
         RestClientIO clientIO = new RestClientIO(client);
         long startOffset = 0;
