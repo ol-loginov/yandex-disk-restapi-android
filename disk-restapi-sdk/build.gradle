@@ -42,6 +42,8 @@ dependencies {
 //    implementation 'com.android.support:appcompat-v7:' + supportLibsVersion
     implementation 'androidx.annotation:annotation:1.0.1'
 
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
